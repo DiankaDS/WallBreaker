@@ -15,7 +15,8 @@ public class SideSwitch : MonoBehaviour, IPointerDownHandler
 
     public void Rotate()
     {
-        if (Brick.isGame) {
+        if (Brick.isGame) 
+        {
             wall.RotateCamera();
         }
     }

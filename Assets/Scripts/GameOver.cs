@@ -41,7 +41,11 @@ public class GameOver : MonoBehaviour
     public void DeleteSectionAndContinue()
     {
         side.ContinueGame();
+        HideMenu();
+    }
 
+    public void HideMenu()
+    {
         text.text = "";
         Brick.isGame = true;
         buttonRestart.gameObject.SetActive(false);

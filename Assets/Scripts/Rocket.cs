@@ -2,11 +2,13 @@
 
 public class Rocket : Brick
 {
-    public void InitBrick(WallSection wall) {
+    public void InitBrick(WallSection wall) 
+    {
         this.wall = wall;
     }
 
-    public override bool IsBrickMatch(BrickColor neededColor) {
+    public override bool IsBrickMatch(BrickColor neededColor) 
+    {
         return false;
     }
 
@@ -19,8 +21,13 @@ public class Rocket : Brick
         }
     }
 
+    public override string ToString()
+    {
+        return "10";
+    }
+
     public override void UnfadeColor()
     {
-        this.GetComponent<MeshRenderer>().material = materials[0];
+        GetComponent<MeshRenderer>().material = materials[0];
     }
 }

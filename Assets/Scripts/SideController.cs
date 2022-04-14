@@ -22,7 +22,8 @@ public class SideController : MonoBehaviour
         walls[activeWall].ShowSections();
     }
 
-    public void ContinueGame() {
+    public void ContinueGame() 
+    {
         foreach (WallCreator wall in walls)
         {
             wall.RemoveForContinue();

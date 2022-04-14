@@ -14,13 +14,13 @@ public class Music : MonoBehaviour, IPointerDownHandler
 
         if (music.mute)
         {
-            ChangeImages(this.gameObject, true, false);
+            ChangeImages(gameObject, true, false);
             ChangeImages(button2.gameObject, true, false);
 
         }
         else
         {
-            ChangeImages(this.gameObject, false, true);
+            ChangeImages(gameObject, false, true);
             ChangeImages(button2.gameObject, false, true);
         }
 

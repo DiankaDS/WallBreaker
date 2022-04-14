@@ -113,6 +113,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d5929a0f2dca84161a56ab03afdce81f, type: 2}
   - {fileID: 2100000, guid: 5e5255d1732cada4fbde676ca81fe599, type: 2}
   fadeMaterial: {fileID: 2100000, guid: cac67cafb5b42b763af014ede18a521f, type: 2}
+  particlesPrefab: {fileID: 312027162681318402, guid: b5cc69fe0636002d68cbe76ca04cff52,
+    type: 3}
+  isMarked: 0
 --- !u!54 &126014766908910568
 Rigidbody:
   m_ObjectHideFlags: 0

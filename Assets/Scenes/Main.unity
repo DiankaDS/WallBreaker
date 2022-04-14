@@ -319,6 +319,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   click: {fileID: 69868733}
+  gameOver: {fileID: 1213444754}
+  walls:
+  - {fileID: 498908805}
+  - {fileID: 280074383}
 --- !u!82 &69868733
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.IO;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,30 +17,93 @@ public class WallCreator : MonoBehaviour
     
     private static int pointsPerTurn = 0;
 
+    private string ToString()
+    {
+        string[] result = new string[wallSections.Count];
+        for (int i = 0; i < wallSections.Count; i++)
+        {
+            result[i] = wallSections[i].ToString();
+        }
+
+        return String.Join("\n", result);
+    }
+
+    private void SaveWall()
+    {
+        string data = ToString();
+
+        using (StreamWriter file = new StreamWriter(Path.Combine(Application.persistentDataPath, name + ".txt")))
+        {
+            file.Write(data);
+        }
+    }
+
+    private async Task OpenWall(string path)
+    {
+        if (File.Exists(path))
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string line;
+                int i = 0;
+
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    CreateWallSection(wallSections.Count, line);
+                    i++;
+                }
+            }
+        }
+    }
+
     private void Start()
     {
-        this.InitWall(6);
+        string path = Path.Combine(Application.persistentDataPath, name + ".txt");
+
+        if (File.Exists(path))
+        {
+            OpenWall(path);
+        }
+        else
+        {
+            InitWall(6);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveWall();
     }
 
     public void InitWall(int size)
     {
-        for(int i = size - 1; i >= 0; i--) 
+        for (int i = size - 1; i >= 0; i--) 
         {
             CreateWallSection(i);
         }
     }
 
-    private void CreateWallSection(int delta) 
+    private void CreateWallSection(int delta, string data = null) 
     {
-        WallSection cube = Instantiate(wallPrefab, this.transform).GetComponent<WallSection>();
+        WallSection cube = Instantiate(wallPrefab, transform).GetComponent<WallSection>();
         cube.transform.position += new Vector3(-delta * wallSize, 0, 0);
-        wallSections.Insert(0, cube);
+
+        if (data == null)
+        {
+            wallSections.Insert(0, cube);
+            cube.InitWall(8);
+        }
+        else 
+        {
+            wallSections.Add(cube);
+            cube.OpenSection(data);
+        }
     }
 
     public void OnTouchSection(WallSection wall, int brickIndex, BrickColor color)
     {
         int index = wallSections.IndexOf(wall);
-        this.OnTouchSection(index, brickIndex, color);
+        OnTouchSection(index, brickIndex, color);
         wallOtherSide.OnTouchOtherWall(index, brickIndex, color);
     }
 
@@ -76,7 +142,8 @@ public class WallCreator : MonoBehaviour
     {
         int points = 0;
 
-        foreach (WallSection wall in wallSections) {
+        foreach (WallSection wall in wallSections) 
+        {
             points += wall.RemoveAndCountMarked();
         }
 
@@ -101,8 +168,10 @@ public class WallCreator : MonoBehaviour
     {
         int points = 0;
 
-        foreach (WallSection wall in wallSections) {
-           if (wall.RemoveBrick(index)) {
+        foreach (WallSection wall in wallSections) 
+        {
+           if (wall.RemoveBrick(index)) 
+           {
                points++;
            }
         }
@@ -145,14 +214,16 @@ public class WallCreator : MonoBehaviour
 
     public void HideSections()
     {
-       foreach (WallSection i in wallSections) {
+       foreach (WallSection i in wallSections) 
+       {
            i.HideCubes();
        }
     }
 
     public void ShowSections()
     {
-       foreach (WallSection i in wallSections) {
+       foreach (WallSection i in wallSections) 
+       {
            i.ShowCubes();
        }
     }
