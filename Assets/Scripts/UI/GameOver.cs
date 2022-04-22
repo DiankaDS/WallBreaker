@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] private Text text;
+    [SerializeField] private Text gameOverText;
     [SerializeField] private Button buttonRestart;
     [SerializeField] private Button buttonCntinue;
     [SerializeField] private SideController side;
@@ -17,8 +17,8 @@ public class GameOver : MonoBehaviour
         fall.Play();
         other.GetComponent<Brick>().DeleteWall();
 
-        text.text = "GAME OVER";
         Brick.isGame = false;
+        gameOverText.gameObject.SetActive(true);
         buttonRestart.gameObject.SetActive(true);
         
         if (isFirstFail)
@@ -46,8 +46,8 @@ public class GameOver : MonoBehaviour
 
     public void HideMenu()
     {
-        text.text = "";
         Brick.isGame = true;
+        gameOverText.gameObject.SetActive(false);
         buttonRestart.gameObject.SetActive(false);
         buttonCntinue.gameObject.SetActive(false);
     }

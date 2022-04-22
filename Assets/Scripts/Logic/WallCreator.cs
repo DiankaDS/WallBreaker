@@ -14,15 +14,18 @@ public class WallCreator : MonoBehaviour
     [SerializeField] private WallCreator wallOtherSide;
     private List<WallSection> wallSections = new List<WallSection>();
     private float wallSize = 1.15f;
+    private string path;
+    private int maxSections = 6;
+    private int maxBricks = 8;
     
     private static int pointsPerTurn = 0;
 
-    private string ToString()
+    private string ConvertToString()
     {
         string[] result = new string[wallSections.Count];
         for (int i = 0; i < wallSections.Count; i++)
         {
-            result[i] = wallSections[i].ToString();
+            result[i] = wallSections[i].ConvertToString();
         }
 
         return String.Join("\n", result);
@@ -30,9 +33,9 @@ public class WallCreator : MonoBehaviour
 
     private void SaveWall()
     {
-        string data = ToString();
+        string data = ConvertToString();
 
-        using (StreamWriter file = new StreamWriter(Path.Combine(Application.persistentDataPath, name + ".txt")))
+        using (StreamWriter file = new StreamWriter(path))
         {
             file.Write(data);
         }
@@ -58,7 +61,7 @@ public class WallCreator : MonoBehaviour
 
     private void Start()
     {
-        string path = Path.Combine(Application.persistentDataPath, name + ".txt");
+        path = Path.Combine(Application.persistentDataPath, name + ".txt");
 
         if (File.Exists(path))
         {
@@ -66,7 +69,7 @@ public class WallCreator : MonoBehaviour
         }
         else
         {
-            InitWall(6);
+            InitWall(maxSections);
         }
     }
 
@@ -91,7 +94,7 @@ public class WallCreator : MonoBehaviour
         if (data == null)
         {
             wallSections.Insert(0, cube);
-            cube.InitWall(8);
+            cube.InitWall(maxBricks);
         }
         else 
         {
@@ -231,7 +234,7 @@ public class WallCreator : MonoBehaviour
     public void RemoveForContinue()
     {
         int index = 5;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3 && wallSections.Count > index; i++)
         {
             wallSections[index++].RemoveAllBricks();
         }

@@ -1129,8 +1129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b343336f92ce4f9a23baa0ca5cf8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 294231548}
-  text2: {fileID: 1162408724}
+  textLeft: {fileID: 294231548}
+  textRight: {fileID: 1162408724}
 --- !u!1 &300607278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,7 +1706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &538946409
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1758,7 +1758,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: GAME OVER
 --- !u!222 &538946411
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3639,7 +3639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e2991bfd124de90acc340722175b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 538946410}
+  gameOverText: {fileID: 538946410}
   buttonRestart: {fileID: 69868729}
   buttonCntinue: {fileID: 1916416225}
   side: {fileID: 574915698}
@@ -5452,7 +5452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e2991bfd124de90acc340722175b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 538946410}
+  gameOverText: {fileID: 538946410}
   buttonRestart: {fileID: 69868729}
   buttonCntinue: {fileID: 1916416225}
   side: {fileID: 574915698}

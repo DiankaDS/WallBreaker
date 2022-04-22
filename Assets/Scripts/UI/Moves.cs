@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class Moves : MonoBehaviour
 {
-    [SerializeField] private Text text;
-    [SerializeField] private Text text2;
+    [SerializeField] private Text textLeft;
+    [SerializeField] private Text textRight;
     private int maxMoves = 3;
     private int moves = 3;
 
@@ -34,7 +34,8 @@ public class Moves : MonoBehaviour
         {
             moves = value;
         }
-        else {
+        else
+        {
             moves = maxMoves;
         }
         PlayerPrefs.SetInt("moves", moves);
@@ -43,7 +44,7 @@ public class Moves : MonoBehaviour
 
     private void SetText()
     {
-        text.text = $"{moves}";
-        text2.text = $"{moves}";
+        textLeft.text = $"{moves}";
+        textRight.text = $"{moves}";
     }
 }

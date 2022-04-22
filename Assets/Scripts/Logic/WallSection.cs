@@ -14,12 +14,12 @@ public class WallSection : MonoBehaviour
 
     public static float rocketChance = 2000f;
     
-    public string ToString()
+    public string ConvertToString()
     {
         string[] result = new string[bricks.Count];
         for (int i = 0; i < bricks.Count; i++)
         {
-            result[i] = bricks[i].ToString();
+            result[i] = bricks[i].ConvertToString();
         }
         return String.Join("|", result);
     }

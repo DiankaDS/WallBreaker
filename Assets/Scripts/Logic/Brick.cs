@@ -1,8 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-public enum BrickColor { Blue, Red, Yellow, Green }
-
 public class Brick : MonoBehaviour
 {
     [SerializeField] protected Material[] materials;
@@ -15,7 +13,7 @@ public class Brick : MonoBehaviour
     protected WallSection wall;
     private BrickColor color;
 
-    public virtual string ToString()
+    public virtual string ConvertToString()
     {
         return $"{(int)color}";
     }
@@ -27,7 +25,7 @@ public class Brick : MonoBehaviour
         
         if (colorToSet == null)
         {
-            colorKey = UnityEngine.Random.Range(0, 4);
+            colorKey = UnityEngine.Random.Range(0, Enum.GetNames(typeof(BrickColor)).Length);
         }
         else 
         {
@@ -77,6 +75,7 @@ public class Brick : MonoBehaviour
         CreateParticles();
         Destroy(gameObject);
     }
+    
     private void CreateParticles()
     {
         ParticleSystem particles = Instantiate(particlesPrefab, transform).GetComponent<ParticleSystem>();

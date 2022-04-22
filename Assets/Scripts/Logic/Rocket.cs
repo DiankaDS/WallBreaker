@@ -21,7 +21,7 @@ public class Rocket : Brick
         }
     }
 
-    public override string ToString()
+    public override string ConvertToString()
     {
         return "10";
     }
