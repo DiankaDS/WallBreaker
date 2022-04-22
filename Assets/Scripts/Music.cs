@@ -6,30 +6,40 @@ public class Music : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private AudioSource music;
     [SerializeField] private AudioSource click;
-    [SerializeField] private Button button2;
+    [SerializeField] private GameObject[] buttonsOn;
+    [SerializeField] private GameObject[] buttonsOff;
+
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("music_mute") && PlayerPrefs.GetInt("music_mute") == 1)
+        {
+            Mute(true);
+        }
+    }
 
     public void OnPointerDown (PointerEventData data)
     {
         click.Play();
-
-        if (music.mute)
-        {
-            ChangeImages(gameObject, true, false);
-            ChangeImages(button2.gameObject, true, false);
-
-        }
-        else
-        {
-            ChangeImages(gameObject, false, true);
-            ChangeImages(button2.gameObject, false, true);
-        }
-
-        music.mute = !music.mute;
+        Mute(!music.mute);
     }
 
-    private void ChangeImages(GameObject obj, bool value0, bool value1)
+    private void Mute(bool isMute)
     {
-        obj.transform.GetChild(0).gameObject.SetActive(value0);
-        obj.transform.GetChild(1).gameObject.SetActive(value1);
+        music.mute = isMute;
+        ChangeImage(isMute);
+        PlayerPrefs.SetInt("music_mute", isMute ? 1 : 0);
+    }
+
+    private void ChangeImage(bool isMute)
+    {
+        foreach (GameObject button in buttonsOn)
+        {
+            button.SetActive(!isMute);
+        }
+
+        foreach (GameObject button in buttonsOff)
+        {
+            button.SetActive(isMute);
+        }
     }
 }

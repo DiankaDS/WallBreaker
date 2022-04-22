@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,42 +11,34 @@ public class Moves : MonoBehaviour
 
     private void Start()
     {
-        string path = Path.Combine(Application.persistentDataPath, name + ".txt");
-        
-        if (File.Exists(path))
+        if (PlayerPrefs.HasKey("moves"))
         {
-            using (StreamReader reader = new StreamReader(path))
-            {
-                moves = Int32.Parse(reader.ReadToEnd());
-                SetText();
-            }
+            SetMoves(PlayerPrefs.GetInt("moves"));
         }
-    }
-
-    private void OnApplicationQuit()
-    {
-        SaveToString();
     }
 
     public bool IsMoveTime()
     {
-        if (--moves == 0) 
+        SetMoves(moves - 1);
+        if (moves == maxMoves)
         {
-            moves = maxMoves;
-            SetText();
             return true;
         }
 
-        SetText();
         return false;
     }
 
-    private void SaveToString()
+    private void SetMoves(int value)
     {
-        using (StreamWriter file = new StreamWriter(Path.Combine(Application.persistentDataPath, name + ".txt")))
+        if (value > 0)
         {
-            file.Write($"{moves}");
+            moves = value;
         }
+        else {
+            moves = maxMoves;
+        }
+        PlayerPrefs.SetInt("moves", moves);
+        SetText();
     }
 
     private void SetText()

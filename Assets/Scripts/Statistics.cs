@@ -1,43 +1,28 @@
 ﻿using System;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Statistics : MonoBehaviour
 {
-    [SerializeField] private Text text;
-    [SerializeField] private Text text2;
+    [SerializeField] private Text textLeft;
+    [SerializeField] private Text textRight;
     private int scores = 0;
     private int level = 1;
     private int delta = 100;
 
     private void Start()
     {
-        string path = Path.Combine(Application.persistentDataPath, name + ".txt");
-        
-        if (File.Exists(path))
+        if (PlayerPrefs.HasKey("level"))
         {
-            using (StreamReader reader = new StreamReader(path))
-            {
-                string[] data = reader.ReadToEnd().Split('|');
-                scores = Int32.Parse(data[0]);
-                level = Int32.Parse(data[1]);
-                SetText();
-            }
+            level = PlayerPrefs.GetInt("level");
         }
-    }
 
-    private void SaveToString()
-    {
-        using (StreamWriter file = new StreamWriter(Path.Combine(Application.persistentDataPath, name + ".txt")))
+        if (PlayerPrefs.HasKey("scores"))
         {
-            file.Write($"{scores}|{level}");
+            scores = PlayerPrefs.GetInt("scores");
         }
-    }
 
-    private void OnApplicationQuit()
-    {
-        SaveToString();
+        SetText();
     }
 
     public void SetScores(int points)
@@ -51,12 +36,14 @@ public class Statistics : MonoBehaviour
             WallSection.rocketChance *= 0.98f;
         }
 
+        PlayerPrefs.SetInt("level", level);
+        PlayerPrefs.SetInt("scores", scores);
         SetText();
     }
 
     private void SetText()
     {
-        text.text = $"Score: {scores}    Level: {level}";
-        text2.text = $"Score: {scores}    Level: {level}";
+        textLeft.text = $"Score: {scores}    Level: {level}";
+        textRight.text = $"Score: {scores}    Level: {level}";
     }
 }
