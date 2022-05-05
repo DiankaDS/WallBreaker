@@ -41,6 +41,25 @@ public class Statistics : MonoBehaviour
         SetText();
     }
 
+    public void ResetScores()
+    {
+        scores = 0;
+        level = 1;
+        PlayerPrefs.SetInt("level", level);
+        PlayerPrefs.SetInt("scores", scores);
+        SetText();
+    }
+
+    public int GetScores()
+    {
+        return scores;
+    }
+
+    public int GetLevel()
+    {
+        return level;
+    }
+
     private void SetText()
     {
         textLeft.text = $"Score: {scores}    Level: {level}";

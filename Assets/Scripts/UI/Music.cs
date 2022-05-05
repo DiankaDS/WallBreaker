@@ -17,7 +17,7 @@ public class Music : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    public void OnPointerDown (PointerEventData data)
+    public void OnPointerDown(PointerEventData data)
     {
         click.Play();
         Mute(!music.mute);

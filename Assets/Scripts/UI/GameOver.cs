@@ -3,13 +3,13 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] private Text gameOverText;
-    [SerializeField] private Button buttonRestart;
-    [SerializeField] private Button buttonCntinue;
+    [SerializeField] private Button buttonContinue;
+    [SerializeField] private Canvas gameOverCanvas;
     [SerializeField] private SideController side;
     [SerializeField] private AudioSource click;
     [SerializeField] private AudioSource fall;
 
+    public static bool isGameOver = false;
     private bool isFirstFail = true;
 
     private void OnTriggerEnter(Collider other)
@@ -18,14 +18,15 @@ public class GameOver : MonoBehaviour
         other.GetComponent<Brick>().DeleteWall();
 
         Brick.isGame = false;
-        gameOverText.gameObject.SetActive(true);
-        buttonRestart.gameObject.SetActive(true);
+        isGameOver = true;
+
+        gameOverCanvas.gameObject.SetActive(true);
         
-        if (isFirstFail)
+        if (!isFirstFail)
         {
-            buttonCntinue.gameObject.SetActive(true);
-            isFirstFail = false;
+            buttonContinue.gameObject.SetActive(false);
         }
+        isFirstFail = false;
     }
 
     public void SetContinue()
@@ -40,6 +41,7 @@ public class GameOver : MonoBehaviour
 
     public void DeleteSectionAndContinue()
     {
+        isGameOver = false;
         side.ContinueGame();
         HideMenu();
     }
@@ -47,8 +49,6 @@ public class GameOver : MonoBehaviour
     public void HideMenu()
     {
         Brick.isGame = true;
-        gameOverText.gameObject.SetActive(false);
-        buttonRestart.gameObject.SetActive(false);
-        buttonCntinue.gameObject.SetActive(false);
+        gameOverCanvas.gameObject.SetActive(false);
     }
 }

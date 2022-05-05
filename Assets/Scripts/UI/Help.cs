@@ -7,16 +7,22 @@ public class Help : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private AudioSource click;
     [SerializeField] private Canvas text;
 
-    public void OnPointerDown (PointerEventData data)
+    public void OnPointerDown(PointerEventData data)
     {
         PlayAudio();
-        text.gameObject.SetActive(true);
+        if (Brick.isGame)
+        {
+            text.gameObject.SetActive(true);
+        }
     }
 
-    public void OnPointerUp (PointerEventData data)
+    public void OnPointerUp(PointerEventData data)
     {
         PlayAudio();
-        text.gameObject.SetActive(false);
+        if (Brick.isGame)
+        {
+            text.gameObject.SetActive(false);
+        }
     }
 
     private void PlayAudio() 
