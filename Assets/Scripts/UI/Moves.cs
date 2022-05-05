@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Moves : MonoBehaviour
 {
-    [SerializeField] private Text textLeft;
-    [SerializeField] private Text textRight;
-    private int maxMoves = 3;
+    [SerializeField] private RawImage secondImage;
+    [SerializeField] private List<Texture> images = new List<Texture>();
     private int moves = 3;
 
     private void Start()
@@ -20,7 +20,7 @@ public class Moves : MonoBehaviour
     public bool IsMoveTime()
     {
         SetMoves(moves - 1);
-        if (moves == maxMoves)
+        if (moves == images.Count)
         {
             return true;
         }
@@ -36,15 +36,15 @@ public class Moves : MonoBehaviour
         }
         else
         {
-            moves = maxMoves;
+            moves = images.Count;
         }
         PlayerPrefs.SetInt("moves", moves);
-        SetText();
+        SetImages();
     }
 
-    private void SetText()
+    private void SetImages()
     {
-        textLeft.text = $"{moves}";
-        textRight.text = $"{moves}";
+        GetComponent<RawImage>().texture = images[moves - 1];
+        secondImage.texture = images[moves - 1];
     }
 }
