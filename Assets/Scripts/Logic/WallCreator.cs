@@ -12,6 +12,7 @@ public class WallCreator : MonoBehaviour
     [SerializeField] private Statistics statistics;
     [SerializeField] private Moves moves;
     [SerializeField] private WallCreator wallOtherSide;
+    [SerializeField] private AudioSource movingAudio;
     private List<WallSection> wallSections = new List<WallSection>();
     private float wallSize = 1.15f;
     private string path;
@@ -208,6 +209,7 @@ public class WallCreator : MonoBehaviour
         }
         
         CreateWallSection(0);
+        movingAudio.Play();
     }
 
     private void CountPoints(int value)
@@ -231,12 +233,22 @@ public class WallCreator : MonoBehaviour
        }
     }
 
-    public void RemoveForContinue()
+    public int GetSectionsCount()
     {
-        int index = 5;
-        for (int i = 0; i < 3 && wallSections.Count > index; i++)
+        return wallSections.Count;
+    }
+
+    public void RemoveForContinue(int maxNumber)
+    {
+        for (int i = 0; i < 3; i++)
         {
-            wallSections[index++].RemoveAllBricks();
+            maxNumber--;
+            if (wallSections.Count > maxNumber)
+            {
+                wallSections[maxNumber].RemoveAllBricks();
+                Destroy(wallSections[maxNumber].gameObject);
+                wallSections.Remove(wallSections[maxNumber]);
+            }
         }
     }
 

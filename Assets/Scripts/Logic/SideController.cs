@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,9 +25,11 @@ public class SideController : MonoBehaviour
 
     public void ContinueGame() 
     {
+        int maxNumber = walls.Select(x => x.GetSectionsCount()).Max();
+        
         foreach (WallCreator wall in walls)
         {
-            wall.RemoveForContinue();
+            wall.RemoveForContinue(maxNumber);
         }
     }
 
