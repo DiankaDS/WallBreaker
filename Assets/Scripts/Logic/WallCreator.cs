@@ -74,9 +74,12 @@ public class WallCreator : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
+    private void OnApplicationPause(bool pauseStatus)
     {
-        SaveWall();
+        if (pauseStatus)
+        {
+            SaveWall();
+        }
     }
 
     public void InitWall(int size)
