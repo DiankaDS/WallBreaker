@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ public class WallCreator : MonoBehaviour
     [SerializeField] private Moves moves;
     [SerializeField] private WallCreator wallOtherSide;
     [SerializeField] private AudioSource movingAudio;
+    [SerializeField] private LastStep lastStep;
     private List<WallSection> wallSections = new List<WallSection>();
     private float wallSize = 1.15f;
     private string path;
@@ -168,7 +170,20 @@ public class WallCreator : MonoBehaviour
             wallOtherSide.MoveWall();
         }
 
+        CheckDangerous();
         Brick.isGame = true;
+    }
+
+    private void CheckDangerous()
+    {
+        if (GetFullSectionsCount() > 13 || wallOtherSide.GetFullSectionsCount() > 13)
+        {
+            lastStep.ShowDangerous();
+        }
+        else
+        {
+            lastStep.StopShowDangerous();
+        }
     }
 
     public void DeleteLine(int index, bool isFirst = true)
@@ -239,6 +254,11 @@ public class WallCreator : MonoBehaviour
     public int GetSectionsCount()
     {
         return wallSections.Count;
+    }
+
+    public int GetFullSectionsCount()
+    {
+        return wallSections.Where(x => !x.IsEmpty()).Count();
     }
 
     public void RemoveForContinue(int maxNumber)

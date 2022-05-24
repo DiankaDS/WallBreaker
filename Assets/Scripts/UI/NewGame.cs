@@ -15,7 +15,7 @@ public class NewGame : MonoBehaviour
         File.Delete(Path.Combine(Application.persistentDataPath, "WallCreator2.txt"));
         statistics.ResetScores();
         Brick.isGame = true;
-        GameOver.isGameOver = false;
+        PlayerPrefs.SetInt("isGameOver", 0);
         SideController.activeWall = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
