@@ -48,7 +48,7 @@ public class Brick : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (isGame)
+        if (isGame && !GameOver.isGameOver)
         {
             isGame = false;
             wall.OnTouchBrick(this);

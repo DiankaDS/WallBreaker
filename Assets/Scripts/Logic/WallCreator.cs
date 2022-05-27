@@ -176,7 +176,7 @@ public class WallCreator : MonoBehaviour
 
     private void CheckDangerous()
     {
-        if (GetFullSectionsCount() > 13 || wallOtherSide.GetFullSectionsCount() > 13)
+        if (GetFullSectionsCount() > 12 || wallOtherSide.GetFullSectionsCount() > 12)
         {
             lastStep.ShowDangerous();
         }

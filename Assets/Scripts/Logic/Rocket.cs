@@ -14,7 +14,7 @@ public class Rocket : Brick
 
     public void OnMouseDown()
     {
-        if (isGame)
+        if (isGame && !GameOver.isGameOver)
         {
             isGame = false;
             wall.OnTouchRocket(this);
