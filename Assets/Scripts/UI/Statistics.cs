@@ -5,12 +5,16 @@ public class Statistics : MonoBehaviour
 {
     [SerializeField] private Text textLeft;
     [SerializeField] private Text textRight;
-    private int scores = 0;
-    private int level = 1;
-    private int delta = 100;
+    private int scores;
+    private int level;
+    private int delta;
 
     private void Start()
     {
+        scores = 0;
+        level = 1;
+        delta = 100;
+
         if (PlayerPrefs.HasKey("level"))
         {
             level = PlayerPrefs.GetInt("level");
@@ -32,7 +36,8 @@ public class Statistics : MonoBehaviour
         {
             level++;
             delta += level * level * 100;
-            WallSection.rocketChance *= 0.98f;
+            WallSection.rocketChance *= 0.9f;
+            PlayerPrefs.SetFloat("rocket_chance", WallSection.rocketChance);
         }
 
         PlayerPrefs.SetInt("level", level);

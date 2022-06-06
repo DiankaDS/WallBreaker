@@ -8,11 +8,23 @@ public class WallSection : MonoBehaviour
     [SerializeField] private GameObject rocketPrefab;
 
     private List<Brick> bricks = new List<Brick>();
-    private static bool isMouseEnabled = true;
     private float brickSize = 1.15f;
 
-    public static float rocketChance = 2000f;
-    
+    public static float rocketChance;
+
+    private void Awake()
+    {
+        if (PlayerPrefs.HasKey("rocket_chance"))
+        {
+            rocketChance = PlayerPrefs.GetFloat("rocket_chance");
+        }
+        else
+        {
+            rocketChance = 0.02f;
+            PlayerPrefs.SetFloat("rocket_chance", rocketChance);
+        }
+    }
+
     public string ConvertToString()
     {
         string[] result = new string[bricks.Count];
@@ -51,7 +63,7 @@ public class WallSection : MonoBehaviour
     {
         for (int i = 0; i < size; i++) 
         {
-            if (UnityEngine.Random.Range(0, 100000) > rocketChance) 
+            if (UnityEngine.Random.Range(0.0f, 1.0f) > rocketChance) 
             {
                 CreateBrick();
             }
