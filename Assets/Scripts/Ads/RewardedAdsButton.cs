@@ -28,11 +28,11 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
 
 #if UNITY_IOS
         adId = iOSAdId;
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID || UNITY_EDITOR
         adId = androidAdId;
 #endif
     }
-    
+
     public void LoadAd()
     {
         Debug.Log("Loading Ad: " + adId);
